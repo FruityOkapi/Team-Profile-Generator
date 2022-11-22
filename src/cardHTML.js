@@ -8,12 +8,12 @@ const cardHTML = ({icon, employeeName, position, idNum, email, thirdOpt, thirdOp
       </figure>
     </div>
     <div class="media-content">
-      <p class="title is-4">${employeeName}</p>
-      <p class="subtitle is-6">${position}</p>
+      <p class="title is-4">${name}</p>
+      <p class="subtitle is-6">${role}</p>
     </div>
   </div>
   <div class="content">
-    <p class="box">ID: ${idNum}</p>
+    <p class="box">ID: ${id}</p>
     <p class="box">Email: <a href="${email}">${email}</a></p>
     <p class="box">${thirdOpt}: ${thirdOptInput}</p>
   </div>

@@ -1,4 +1,5 @@
-const htmlsrc = `
+const htmlsrc =
+`
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,19 +20,13 @@ const htmlsrc = `
 
   <main>
     <div class="container">
-        <div class="columns">
-            <div class="column is-one-third">${card}</div>
-            <div class="column is-one-third">${card}</div>
-            <div class="column is-one-third">${card}</div>
-        </div>
-        <div class="columns">
-            <div class="column is-one-third">${card}</div>
-            <div class="column is-one-third">${card}</div>
-        </div>
+        ${cards}
     </div>
   </main>
 </body>
 </html>`
+
+
 
 module.exports = {
     htmlsrc
