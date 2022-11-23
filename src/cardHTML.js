@@ -1,4 +1,4 @@
-const cardHTML = ({icon, employeeName, position, idNum, email, thirdOpt, thirdOptInput}) => `
+const cardHTML = ({icon, name, role, id, email, thirdOpt, thirdOptInput}) => `
 <div class="card">
 <div class="card-content">
   <div class="media">

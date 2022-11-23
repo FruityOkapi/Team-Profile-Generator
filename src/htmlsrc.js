@@ -1,4 +1,4 @@
-const htmlsrc =
+const htmlsrc = ({cards}) =>
 `
 <!DOCTYPE html>
 <html lang="en">
