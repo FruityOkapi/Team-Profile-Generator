@@ -125,10 +125,19 @@ const addIntern = () => inquirer.prompt([
 const fileGenerator = () => {
     const fileStart = htmlStart.htmlTop;  
     const fileEnd = htmlEnd.htmlBottom;
+    let styling = style.style;
+    fs.writeFile('./dist/style.css', styling, (error) => 
+        (error) ? console.log(error) : console.log('Style sheet also generated!'));
     fs.writeFile("./dist/index.html", fileStart, (error) => 
     error ? console.log(error) : console.log('README file generated successfully!')
     );
-    let done = 0;
+    const timer = (x) => {
+        setTimeout(() => {
+            fs.appendFile('./dist/index.html', fileEnd, (error) => {error ? console.log(error) : console.log("Finished making your profile!!")})
+        },x)
+    };
+    let time = employeesArray.length * 1000;
+    timer(time)
     for (let i = 0; i < employeesArray.length; i++) {
         let person = employeesArray[i];
         let name = person.name;
@@ -157,21 +166,10 @@ const fileGenerator = () => {
         let addCard = cardHTML.cardHTML(icon, name, role, id, email, thirdOpt, thirdOptInput);
         fs.appendFile('./dist/index.html', addCard, (error) =>
         error ? console.log(error) :console.log(`Added ${name}!`));
-        done++;
-        console.log(done)
-        if (done === employeesArray.length) {
-            fs.appendFile('./dist/index.html', fileEnd, (error) => 
-                (error) ? console.log(error) : console.log('Finished your team profile page!')
-            );
-            let styling = style.style;
-            fs.writeFile('./dist/style.css', styling, (error) => 
-                (error) ? console.log(error) : console.log('Style sheet also generated!'));
-            return;
-        } else {
-            console.log('Rendering next employee!')
-        }
-    }
-    
+        fs.appendFile('./dist/index.html', fileEnd, (error) => 
+            (error) ? console.log(error) : console.log('Finished your team profile page!')
+        );
+    }  
 }
 
 // Initial prompt set
