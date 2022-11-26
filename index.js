@@ -136,7 +136,7 @@ const fileGenerator = () => {
             fs.appendFile('./dist/index.html', fileEnd, (error) => {error ? console.log(error) : console.log("Finished making your profile!!")})
         },x)
     };
-    let time = employeesArray.length * 1000;
+    let time = employeesArray.length * 500;
     timer(time)
     for (let i = 0; i < employeesArray.length; i++) {
         let person = employeesArray[i];
@@ -166,9 +166,6 @@ const fileGenerator = () => {
         let addCard = cardHTML.cardHTML(icon, name, role, id, email, thirdOpt, thirdOptInput);
         fs.appendFile('./dist/index.html', addCard, (error) =>
         error ? console.log(error) :console.log(`Added ${name}!`));
-        fs.appendFile('./dist/index.html', fileEnd, (error) => 
-            (error) ? console.log(error) : console.log('Finished your team profile page!')
-        );
     }  
 }
 

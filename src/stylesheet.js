@@ -1,6 +1,6 @@
 const style = `
 .limit {
-    width: 300px;
+    width: 400px;
     margin-top: 10px;
 }`
 
