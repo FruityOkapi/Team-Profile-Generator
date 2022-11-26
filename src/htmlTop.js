@@ -1,4 +1,4 @@
-const htmlsrc = ({cards}) =>
+const htmlTop =
 `
 <!DOCTYPE html>
 <html lang="en">
@@ -19,15 +19,11 @@ const htmlsrc = ({cards}) =>
     </section>
 
   <main>
-    <div class="container">
-        ${cards}
-    </div>
-  </main>
-</body>
-</html>`;
+    <div class="container is-flex-wrap-wrap">
+`;
 
 // 
 
 module.exports = {
-    htmlsrc
+    htmlTop
 }

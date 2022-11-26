@@ -22,5 +22,13 @@ describe('Intern', () => {
             const gotSchool = newIntern.getSchool();
             expect(gotSchool).toEqual(newIntern.school);
         })
+    });
+
+    describe('getRole', () => {
+        it('should return with the string Intern', () => {
+            const newIntern = new intern.Intern('Luna', 1, 'test@test.com', 'U of L');
+            const check = newIntern.getRole();
+            expect(check).toEqual('Intern');
+        })
     })
 });

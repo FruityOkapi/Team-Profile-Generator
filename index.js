@@ -1,12 +1,14 @@
 // Dependencies
 const inquirer = require('inquirer');
 const cardHTML = require('./src/cardHTML');
-const htmlsrc = require('./src/htmlsrc');
+const htmlStart = require('./src/htmlTop');
+const htmlEnd = require('./src/htmlBottom');
 const employee = require('./lib/employee');
 const manager = require('./lib/manager');
 const engineer = require('./lib/engineer');
 const intern = require('./lib/intern');
 const fs = require('fs');
+const style = require('./src/stylesheet');
 
 // Needed objects and functions
 const employeesArray = [];
@@ -20,14 +22,21 @@ const addTeamMember = () => inquirer.prompt([
         type: 'list',
         name: 'answer',
         message: "Do you wish to add a new team member?",
-        choices: ['Yes', 'No']
+        choices: ['Yes', 'No'],
+        filter(x) {
+            if (x == 'Yes') {
+                return true;
+            } else if (x == 'No') {
+                return false;
+            }
+        }
     }
 ])
 .then((userInput) => {
     const {answer} = userInput
-    if (answer = 'Yes') {
+    if (answer == true) {
         roleSelect()
-    } else {
+    } else if (answer == false) {
         console.log('Now building your team!');
         fileGenerator();
     }
@@ -43,7 +52,7 @@ const roleSelect = () => inquirer.prompt([
 ])
 .then((userInput) => {
     const {role} = userInput
-    if (role = 'Engineer') {
+    if (role == 'Engineer') {
         addEngineer();
     } else {
         addIntern();
@@ -59,7 +68,10 @@ const addEngineer = () => inquirer.prompt([
     {
         type: 'input',
         name: 'id',
-        message: "Please enter the engineer's Id:"
+        message: "Please enter the engineer's id:",
+        filter(x){
+            return parseInt(x)
+        }
     },
     {
         type: 'input',
@@ -73,7 +85,8 @@ const addEngineer = () => inquirer.prompt([
     },
 ])
 .then((userInput) => {
-    const newEngineer = new engineer.Engineer(userInput);
+    const { name, id, email, github} = userInput;
+    const newEngineer = new engineer.Engineer(name, id, email, github);
     employeesArray.push(newEngineer);
     addTeamMember();
 })
@@ -87,7 +100,10 @@ const addIntern = () => inquirer.prompt([
     {
         type: 'input',
         name: 'id',
-        message: "Please enter your intern's Id:"
+        message: "Please enter your intern's id:",
+        filter(x){
+            return parseInt(x)
+        }
     },
     {
         type: 'input',
@@ -101,42 +117,61 @@ const addIntern = () => inquirer.prompt([
     }
 ])
 .then((userInput) => {
-    const newIntern = new intern.Intern(userInput);
+    const {name, id, email, school} = userInput;
+    const newIntern = new intern.Intern(name, id, email, school);
     employeesArray.push(newIntern);
     addTeamMember();
 });
-
 const fileGenerator = () => {
-    for(let i = 0; i < employeesArray.length; i++) {
-        let {name, id , email } = employeesArray[i]
-        let role = employeesArray[i].getRole();
+    const fileStart = htmlStart.htmlTop;  
+    const fileEnd = htmlEnd.htmlBottom;
+    fs.writeFile("./dist/index.html", fileStart, (error) => 
+    error ? console.log(error) : console.log('README file generated successfully!')
+    );
+    let done = 0;
+    for (let i = 0; i < employeesArray.length; i++) {
+        let person = employeesArray[i];
+        let name = person.name;
+        let id = person.id;
+        let role = person.getRole();
+        let email = person.email;
         let thirdOpt;
         let thirdOptInput;
         let icon;
         switch(role){
             case 'Manager':
                 thirdOpt = 'Office Number:';
-                thirdOptInput = employeesArray[i].officeNumber;
+                thirdOptInput = person.officeNumber;
                 icon = managerIcon;
                 break;
             case 'Engineer':
                 thirdOpt = 'Github:';
-                thirdOptInput = employeesArray[i].getGithub();
+                thirdOptInput = person.getGithub();
                 icon = engineerIcon;
                 break;
             case 'Intern':
                 thirdOpt = 'School:'
-                thirdOptInput = employeesArray[i].getSchool()
+                thirdOptInput = person.getSchool();
                 icon = internIcon;
+        };
+        let addCard = cardHTML.cardHTML(icon, name, role, id, email, thirdOpt, thirdOptInput);
+        fs.appendFile('./dist/index.html', addCard, (error) =>
+        error ? console.log(error) :console.log(`Added ${name}!`));
+        done++;
+        console.log(done)
+        if (done === employeesArray.length) {
+            fs.appendFile('./dist/index.html', fileEnd, (error) => 
+                (error) ? console.log(error) : console.log('Finished your team profile page!')
+            );
+            let styling = style.style;
+            fs.writeFile('./dist/style.css', styling, (error) => 
+                (error) ? console.log(error) : console.log('Style sheet also generated!'));
+            return;
+        } else {
+            console.log('Rendering next employee!')
         }
-
-        let genCards = cardHTML.cardHTML(icon, name, id, email, thirdOpt, thirdOptInput);
-        cards.push(genCards);
     }
-    let htmlContent = JSON.stringify(cards);
-    let htmlGen = htmlsrc.htmlsrc(cards);
-    fs.writeFile('./dist/index.html', htmlGen, (error) => 
-        error ? console.log(error) : console.log('README file generated successfully!'))
+    
 }
 
 // Initial prompt set
@@ -149,7 +184,10 @@ inquirer.prompt([
     {
         type: 'input',
         name: 'id',
-        message: "Please enter your team manager's ID:"
+        message: "Please enter your team manager's ID:",
+        filter(x) {
+            return parseInt(x);
+        }
     },
     {
         type:'input',
@@ -160,10 +198,14 @@ inquirer.prompt([
         type: 'input',
         name:'officeNumber',
         message:"Please enter your team manager's office number:",
+        filter(x) {
+            return parseInt(x);
+        }
     },
 ])
 .then((userInput) => {
-    const teamManager = new manager.Manager(userInput);
+    const { name, id, email, officeNumber} = userInput;
+    const teamManager = new manager.Manager(name, id, email, officeNumber);
     employeesArray.push(teamManager);
     addTeamMember();
 });

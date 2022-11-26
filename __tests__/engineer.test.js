@@ -21,5 +21,13 @@ describe('Engineer', () => {
             const github = newEngineer.getGithub();
             expect(github).toEqual(newEngineer.github);
         })
+    });
+
+    describe('getRole', () => {
+        it('should return with the string Engineer', () => {
+            const newEngineer = new engineer.Engineer('Luna', 1, 'test@test.com', 'MsBarksALot');
+            const check = newEngineer.getRole();
+            expect(check).toEqual('Engineer');
+        })
     })
 });

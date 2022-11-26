@@ -1,5 +1,5 @@
-const cardHTML = ({icon, name, role, id, email, thirdOpt, thirdOptInput}) => `
-<div class="card">
+const cardHTML = (icon, name, role, id, email, thirdOpt, thirdOptInput) => `
+<div class="card limit">
 <div class="card-content">
   <div class="media">
     <div class="media-left">
@@ -18,7 +18,9 @@ const cardHTML = ({icon, name, role, id, email, thirdOpt, thirdOptInput}) => `
     <p class="box">${thirdOpt}: ${thirdOptInput}</p>
   </div>
 </div>
-</div>`
+</div>
+
+`
 
 module.exports = {
     cardHTML
