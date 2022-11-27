@@ -17,14 +17,15 @@ describe('Engineer', () => {
 
     describe('getGithub', () => {
         it('should return with the GitHub username.', () => {
+            const html = '<a href="https://github.com/FruityOkapi">FruityOkapi</a>';
             const newEngineer = new engineer.Engineer('Luna', 3, 'test@test.com', 'FruityOkapi')
             const github = newEngineer.getGithub();
-            expect(github).toEqual(newEngineer.github);
+            expect(github).toEqual(html);
         })
     });
 
     describe('getRole', () => {
-        it('should return with the string Engineer', () => {
+        it('should return with a string with html for the github', () => {
             const newEngineer = new engineer.Engineer('Luna', 1, 'test@test.com', 'MsBarksALot');
             const check = newEngineer.getRole();
             expect(check).toEqual('Engineer');

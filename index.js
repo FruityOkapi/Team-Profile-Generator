@@ -76,7 +76,16 @@ const addEngineer = () => inquirer.prompt([
     {
         type: 'input',
         name: 'email',
-        message: "Please enter your engineer's email:"
+        message: "Please enter your engineer's email:",
+        validate(x) {
+            let check = x.split('');
+            if (check.includes('@') && check.includes('.')) {
+                return true;
+            } else {
+                return "Please enter a valid email address!";
+            }
+        },
+
     },
     {
         type: 'input',
@@ -85,7 +94,7 @@ const addEngineer = () => inquirer.prompt([
     },
 ])
 .then((userInput) => {
-    const { name, id, email, github} = userInput;
+    let { name, id, email, github} = userInput;
     const newEngineer = new engineer.Engineer(name, id, email, github);
     employeesArray.push(newEngineer);
     addTeamMember();
@@ -108,13 +117,22 @@ const addIntern = () => inquirer.prompt([
     {
         type: 'input',
         name: 'email',
-        message: "Please enter your intern's email:"
+        message: "Please enter your intern's email:",
+        validate(x) {
+            let check = x.split('');
+            if (check.includes('@') && check.includes('.')) {
+                return true;
+            } else {
+                return "Please enter a valid email address!";
+            }
+        },
+
     },
     {
         type: 'input',
         name: 'school',
-        message: "Please enter your intern's school/university"
-    }
+        message: "Please enter your intern's school/university:",
+        }
 ])
 .then((userInput) => {
     const {name, id, email, school} = userInput;
@@ -187,7 +205,15 @@ inquirer.prompt([
     {
         type:'input',
         name:'email',
-        message: "Please enter your team manager's email address:"
+        message: "Please enter your team manager's email address:",
+        validate(x) {
+            let check = x.split('');
+            if (check.includes('@') && check.includes('.')) {
+                return true;
+            } else {
+                return "Please enter a valid email address!";
+            }
+        },
     },
     {
         type: 'input',

@@ -13,9 +13,9 @@ const cardHTML = (icon, name, role, id, email, thirdOpt, thirdOptInput) => `
     </div>
   </div>
   <div class="content">
-    <p class="box">ID: ${id}</p>
-    <p class="box">Email: <a href="${email}">${email}</a></p>
-    <p class="box">${thirdOpt}: ${thirdOptInput}</p>
+    <p class="box">ID ${id}</p>
+    <p class="box">Email <a href="${email}">${email}</a></p>
+    <p class="box">${thirdOpt} ${thirdOptInput}</p>
   </div>
 </div>
 </div>
