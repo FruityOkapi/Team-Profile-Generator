@@ -28,8 +28,8 @@ link.link/video.mp4
 Here is a link to the live site: N/A
 
 <!-- Here is a slot to put in screenshots -->
-
-
+Here's a screenshot:
+![Screenshot](./assets/screenshot.png)
 
 
 ## Credits 
