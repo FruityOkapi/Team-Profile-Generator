@@ -23,7 +23,7 @@ use npm i to install dependencies
 
 Open the directory with index.js and run node index.js to get the prompts started. Answer all the prompts to get a generated HTML with your team profile.
 
-link.link/video.mp4
+https://drive.google.com/file/d/13QvC0cLONk-pu5bW4t72kDtWWyy3WKsd/view?usp=sharing
 
 Here is a link to the live site: N/A
 
